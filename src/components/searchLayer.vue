@@ -31,7 +31,7 @@
                 <div class="body">
                     <div class="date startDate">
                         <h2 class="t">开始日期</h2>
-                        <date-picker @update-date='onUpdateStart' :end='can_end'></date-picker>
+                        <date-picker @update-date='onUpdateStart' :end='can_end' :start='can_start'></date-picker>
                     </div><div class="date">
                         <h2 class="t">结束日期</h2>
                         <date-picker @update-date='onUpdateEnd' :start='can_start'></date-picker>

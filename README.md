@@ -7,8 +7,8 @@
 | ------------- |:-------------:| -------:|------------:|
 |itemHeight|Number|34|每一行的高度|
 |itemNum|Number|1|显示器上下有多少个日期可见|
-|start|String||开始时间限制|
-|end|String||结束时间限制|
+|start|String||开始时间限制，格式yyyy-MM-dd，目前只能限制到年|
+|end|String||结束时间限制,格式yyyy-MM-dd，目前只能限制到年|
 |range|Number|5|如果没有定义start跟end 的 year 日期范围默认当前年份的前后5年|
 
 

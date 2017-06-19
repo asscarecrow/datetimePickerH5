@@ -188,9 +188,6 @@ export default {
             this.tra_v.month = this.indicator_ot - (10-time.month)*this.itemHeight;
             this.tra_v.day = this.indicator_ot - (time.day-1)*this.itemHeight;
 
-            // $yearList.style.cssText = `-webkit-transform:translate3d(0,${this.tra_v.year}px,0);transform:translate3d(0,${this.tra_v.year}px,0)`;
-            // $monthList.style.cssText = `-webkit-transform:translate3d(0,${this.tra_v.month}px,0);transform:translate3d(0,${this.tra_v.month}px,0)`;
-            // $dayList.style.cssText = `-webkit-transform:translate3d(0,${this.tra_v.day}px,0);transform:translate3d(0,${this.tra_v.day}px,0)`;
             this.transform($yearList,this.tra_v.year);
             this.transform($monthList,this.tra_v.month);
             this.transform($dayList,this.tra_v.day);
