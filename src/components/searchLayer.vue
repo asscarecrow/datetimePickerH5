@@ -31,10 +31,10 @@
                 <div class="body">
                     <div class="date startDate">
                         <h2 class="t">开始日期</h2>
-                        <date-picker @update-date='onUpdateStart'></date-picker>
+                        <date-picker @update-date='onUpdateStart' :end='can_end'></date-picker>
                     </div><div class="date">
                         <h2 class="t">结束日期</h2>
-                        <date-picker @update-date='onUpdateEnd'></date-picker>
+                        <date-picker @update-date='onUpdateEnd' :start='can_start'></date-picker>
                     </div>
                     <button type="button" class="search-btn" @click="confirmTime">确定</button>
                 </div>
@@ -45,6 +45,81 @@
 </div>
 </transition>
 </template>
+<script>
+const datePicker = r => require.ensure([],()=>r(require('components/datetimePickerH5.vue'),'picker'));
+
+    export default{
+        
+        components:{
+            datePicker
+        },
+        props:{
+            show:{
+                type:Boolean,
+                default:false
+            },
+            repo:null
+
+        },data(){
+            return {
+                //showForm:this.show
+                
+                showStore: false,
+                selectTime:{//选择的时间
+                    start:'',
+                    end:''
+                },
+                start:'',//确定的时间
+                end:'',
+                timeText:'',
+                factory_name: '',
+                can_start:'2015-10-5',
+                can_end:'2020-11-9'
+            }
+        },
+        computed:{
+            slideLayer(){return this.show},
+        },
+       
+        methods:{
+            slide(type){
+                if(type==1){
+                    //显示选择仓库
+                    this.showStore = 1;
+                }else if(type==2) {
+                    this.showStore = 2;
+                }
+            },
+            reset(){
+                this.factory_name= '';
+                this.start='';
+                this.end='';
+            },
+            close(){
+                this.$emit('close')
+            },
+            onUpdateStart(val){
+                this.selectTime.start=val;
+            },
+             onUpdateEnd(val){
+                this.selectTime.end = val;
+            },
+            confirmTime(){
+                this.start=this.selectTime.start;
+                this.end = this.selectTime.end;
+                this.timeText=this.start+'~'+this.end;
+                this.showStore=false;
+                
+            },
+            search(){
+                var _self = this;
+                console.log(this.start,this.end);
+                this.$emit('close');
+            }
+        }
+       
+    }
+</script>
 <style lang="scss">
 
 
@@ -104,76 +179,3 @@
 .slide-right-enter {transform:translate3d(100%,0,0);}
 .slide-right-leave-active {transform:translate3d(100%,0,0);}
 </style>
-<script>
-const datePicker = r => require.ensure([],()=>r(require('components/datetimePickerH5.vue'),'picker'));
-
-    export default{
-        
-        components:{
-            datePicker
-        },
-        props:{
-            show:{
-                type:Boolean,
-                default:false
-            },
-            repo:null
-
-        },data(){
-            return {
-                //showForm:this.show
-                
-                showStore: false,
-                selectTime:{//选择的时间
-                    start:'',
-                    end:''
-                },
-                start:'',//确定的时间
-                end:'',
-                timeText:'',
-                factory_name: ''
-            }
-        },
-        computed:{
-            slideLayer(){return this.show},
-        },
-       
-        methods:{
-            slide(type){
-                if(type==1){
-                    //显示选择仓库
-                    this.showStore = 1;
-                }else if(type==2) {
-                    this.showStore = 2;
-                }
-            },
-            reset(){
-                this.factory_name= '';
-                this.start='';
-                this.end='';
-            },
-            close(){
-                this.$emit('close')
-            },
-            onUpdateStart(val){
-                this.selectTime.start=val;
-            },
-             onUpdateEnd(val){
-                this.selectTime.end = val;
-            },
-            confirmTime(){
-                this.start=this.selectTime.start;
-                this.end = this.selectTime.end;
-                this.timeText=this.start+'~'+this.end;
-                this.showStore=false;
-                
-            },
-            search(){
-                var _self = this;
-                console.log(this.start,this.end);
-                this.$emit('close');
-            }
-        }
-       
-    }
-</script>

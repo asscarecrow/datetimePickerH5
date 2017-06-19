@@ -56,6 +56,32 @@ const years = (function(){
 let startY,startT,diff,points=[];
 
 export default {
+    props:{
+        format:{
+            type:String,
+            default:'yyyy-mm-dd'
+        },
+        itemHeight:{//每一行的高度
+            type:Number,
+            default:34
+        },
+        itemNum:{//上下有多少个item
+            type:Number,
+            default: 1
+        },
+        start:{
+            type:String,
+            default:''
+        },
+        end:{
+            type:String,
+            default: ''
+        },
+        range:{//如果没有定义start跟end 的 year 日期范围默认当前年份的前后5年
+            type:Number,
+            default: 5
+        }
+    },
     data() {
         return {
             days:{
@@ -63,13 +89,6 @@ export default {
                 month:"",
                 day:""
             },
-            format:"yyyy-mm-dd",
-            itemHeight:34,
-            itemNum:1,//上下有多少个item
-            start:'',
-            end:'',
-            range:5,//如果没有定义start跟year 日期范围默认前后5年
-            dateRange:[],
             currDate: '',
             isTouchable: 'ontouchstart' in window,
             tra_v:{//年月日的偏移量的值
@@ -144,8 +163,8 @@ export default {
             //获取结束年份列表
             if(this.end!==""){
                 let valueEnd = this.getDayObj(this.end);
-                if(valueEnd.year<=time.year){
-                    for(var s = valueEnd.year;s<=time.year;s++){
+                if(valueEnd.year>time.year){
+                    for(var s = time.year;s<=valueEnd.year;s++){
                         this.days.year.push(s);
                     }
                 }
